@@ -1,0 +1,101 @@
+<html>
+    <head>
+       <title>Courses</title>
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <style>
+        body{
+            background: linear-gradient(320deg, gainsboro,whitesmoke,cornflowerblue 85%);
+            width: 770px;
+            height:700px;
+            margin: 100px;
+
+        }
+       #container{
+        min-width: 700px;
+        min-height: 450px;
+        border-radius: 15px;
+        padding-top: 25px;
+        padding-bottom: 40px;
+        background: linear-gradient(-180deg, white,ghostwhite);
+        opacity: .9;
+        margin-top:10px;
+        box-shadow: -1px -3px 27px 5px rgb(189, 189, 189) inset;
+       }
+       #add{
+        min-width: 900px;
+        height: 250px;
+        text-align:center;
+        border-radius: 15px;
+        padding-top: 25px;
+        padding-bottom: 20px;
+        background: linear-gradient(-180deg, white,ghostwhite);
+        opacity: .9;
+
+        box-shadow: -1px -3px 27px 5px rgb(189, 189, 189) inset;
+       }
+
+       #header{
+            border-radius: 10px;
+            height: 50px;
+            width: 300px;
+            box-shadow: -1px -3px 21px -5px  rgb(189, 189, 189) inset;
+           border: 3px solid lavender;
+           background:linear-gradient(-180deg, white,ghostwhite);
+       }
+       h2{
+           padding-top: 15px;
+            margin: auto;
+            margin-bottom:5px;
+            text-align: center;
+            padding-bottom: 5px;
+       }
+
+
+       button{
+           border-radius: 8px;
+           background:linear-gradient(-180deg, silver, #c6cfd9);
+        }
+        th{
+            padding:10px;
+        }
+        table{
+        margin: auto;
+        min-width:700px;
+        min-height:300px;
+        margin-bottom: 10px;
+        }
+        table, th, td {
+        border: 2px solid black;
+        border-collapse: collapse;
+        text-align: center;
+        }
+    th{
+        background: linear-gradient( whitesmoke 5%,#f4f0f0 );
+    }
+    td{
+        background-color: #f4f0f0;
+        padding:5px;
+    }
+    button{
+        color:white;
+    }
+    form{
+        padding-top:15px;
+        text-align: center;
+    }
+    li{
+        text-align: center;
+        color:crimson;
+    }
+       </style>
+
+    </head>
+    <body>
+      <div id = 'container'>
+            <h2>Success! Welcome, {{content.fname}}! </h2>
+
+
+        </div>
+        
+    </body>
+</html>

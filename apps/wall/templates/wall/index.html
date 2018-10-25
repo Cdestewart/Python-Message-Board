@@ -1,0 +1,224 @@
+<html>
+
+<head>
+    <title>The Wall</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background: linear-gradient(320deg, gainsboro, whitesmoke, lemonchiffon 85%);
+            width: 770px;
+            min-height: 700px;
+            margin: 100px;
+
+        }
+
+        #container {
+            min-width: 700px;
+            min-height: 750px;
+            border-radius: 15px;
+            padding-top: 25px;
+            padding-bottom: 40px;
+            background: linear-gradient(-180deg, white, ghostwhite);
+            opacity: .9;
+            margin-top: 10px;
+            box-shadow: -1px -3px 27px 5px rgb(189, 189, 189) inset;
+        }
+
+        #add {
+            min-width: 900px;
+            height: 250px;
+            text-align: center;
+            border-radius: 15px;
+            padding-top: 25px;
+            padding-bottom: 20px;
+            background: linear-gradient(-180deg, white, ghostwhite);
+            opacity: .9;
+
+            box-shadow: -1px -3px 27px 5px rgb(189, 189, 189) inset;
+        }
+
+        #header {
+            border-radius: 10px;
+            height: 50px;
+            width: 300px;
+            box-shadow: -1px -3px 21px -5px rgb(189, 189, 189) inset;
+            border: 3px solid lavender;
+            background: linear-gradient(-180deg, white, ghostwhite);
+        }
+
+        h2 {
+            padding-top: 15px;
+            margin: auto;
+            margin-bottom: 5px;
+            text-align: center;
+            padding-bottom: 5px;
+        }
+
+        table {
+            margin: auto;
+            min-width: 700px;
+            min-height: 300px;
+            margin-bottom: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th {
+            padding: 10px;
+            background: linear-gradient( whitesmoke 5%, #f4f0f0);
+        }
+
+        td {
+            background-color: #f4f0f0;
+            padding: 5px;
+        }
+
+        button {
+            color: white;
+            border-radius: 8px;
+        }
+
+        #message {
+            background: linear-gradient(-180deg, #9cb8ec, #a7c7ff);
+        }
+
+        .top {
+            text-align: center;
+        }
+
+        li {
+            text-align: center;
+            color: crimson;
+        }
+
+        textarea {
+            width: 600px;
+            border-radius: 8px;
+            background-color: ghostwhite;
+            box-shadow: -1px -3px 27px 5px #cdcdcd inset;
+            border-color: whitesmoke;
+            color: darkslateblue;
+        }
+
+        #txtarea {
+            min-height: 100px;
+        }
+
+        h3 {
+            text-align: left;
+            padding-left: 88px;
+        }
+
+        h4 {
+            margin-left: 115px;
+            width: 396px;
+            display: inline-block;
+        }
+
+        p {
+            color: #2c625d;
+        }
+
+        .sub button {
+            background-color: lightseagreen;
+            vertical-align: top;
+            margin-top: 8px;
+        }
+
+        .sub textarea {
+
+            width: 425px;
+        }
+
+        h5 {
+            color: #2c625d;
+            margin-left: 145px;
+        }
+
+        .sub p {
+            width: 360px;
+            padding-left: 43px;
+            margin-left: 134px;
+            display: inline-block;
+        }
+
+        .middle {
+            display: inline;
+        }
+
+        a {
+            margin-left: 700px;
+        }
+
+        .sub {
+            border-top-style: outset;
+        }
+
+        .mess {
+            display: inline;
+            margin-left: 25px;
+
+        }
+
+        .mess button {
+            background: linear-gradient(-180deg, #9cb8ec, #a7c7ff);
+        }
+    </style>
+
+</head>
+
+<body>
+    <a href="/wall/logoff">Log Off</a>
+    <div id='container'>
+        <h2>Welcome to the Wall</h2>
+        <form action='/wall/post' method='POST' class="top">
+            {% csrf_token %}
+            <h3>Post a message:</h3>
+            <textarea id="txtarea" name='message'></textarea>
+            <br>
+            <br>
+            <button id="message">Post a Message</button>
+        </form>
+        {%for message in messages%}
+        <div class='sub'>
+            <h3>{{message.poster.fname}} {{message.poster.lname}} - {{message.created_at}}</h3>
+            <h4>{{message.messages}}</h4>
+
+            {%if message.poster.id == request.session.user_id%}
+
+            <form action='/wall/delete' method='POST' class="mess">
+                {% csrf_token %}
+                <button name='message_id' value={ {comment.id}}>Delete Message</button>
+            </form>
+            {%endif%} {%for comment in comments%} {%if comment.message_id.id == message.id%}
+            <div class="comms">
+                <h5>{{comment.poster.fname}} {{comment.poster.lname}} - {{comment.created_at}}</h5>
+                <p>{{comment.comments}}</p>
+                {%if comment.poster.id == request.session.user_id%}
+                <form action='/wall/delete' method='POST' class="middle">
+                    {% csrf_token %}
+                    <button name='comment_id' value={ {comment.id}}>Delete Comment</button>
+                </form>
+                {%endif%}
+
+            </div>
+            {%endif%} {%endfor%}
+            <form action='/wall/comment' method='POST' class="top">
+                {% csrf_token %}
+                <textarea name='comments' placeholder="Comment:"></textarea>
+                <button name='message_id' value={{message.id}}>Post a Comment</button>
+            </form>
+        </div>
+        {%endfor%}
+
+    </div>
+
+</body>
+
+</html>
